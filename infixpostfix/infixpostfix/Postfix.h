@@ -15,17 +15,31 @@ private:
 	std::string postfix;
 	// convert the infix expression to a postfix expression
 	void convert();
+	// checks if all parenthesis are paired
+	bool checkParenthesis();
+	// strips the white spaces from the expression
+	void stripWhiteSpace();
+	// checks if the character is an operator
+	bool isOperator(char);
+	// checks if the character is an open parenthesis
+	bool openParenthesis(char);
+	// checks if the character is a closing parenthesis
+	// returns its alternate opening parenthesis
+	char closeParenthesis(char);
+	// true if precedence is higher, false if precedence is lower
+	bool checkPrecedence(char, char);
+
 public:
 	// default constructor
 	Postfix() { infix = ""; postfix = ""; }
 	// constructor with input
 	Postfix(std::string in) { setInfix(in); }
 	// return the infix expression
-	std::string getInfix() { return infix; }
+	inline std::string getInfix() { return infix; }
 	// return the postfix expression
-	std::string getPostfix() { return postfix; }
+	inline std::string getPostfix() { return postfix; }
 	// set the infix expression (also converts it to postfix)
-	void setInfix(std::string in) { infix = in; convert(); }
+	inline void setInfix(std::string in) { infix = in; convert(); }
 };
 
 #endif
