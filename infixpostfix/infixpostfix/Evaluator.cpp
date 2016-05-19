@@ -5,7 +5,6 @@
 #include <string>
 #include <stack>
 
-// NEEDS WORK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void Evaluator::evaluate() {
 	std::stack<float> numbers;
 		
@@ -26,9 +25,9 @@ void Evaluator::evaluate() {
 				// increment index
 				if (i < postfix.size() - 1) {
 					i++;
-					int decimalCount = 2;
+					int decimalCount = 1;
 					while (isdigit(postfix[i])) {
-						n += ((postfix[i] - '0') / pow(10, decimalCount));
+						n += ((postfix[i] - '0') / pow(10, decimalCount++));
 						// increment index
 						if (i < postfix.size() - 1) { i++; }
 						else { break; }
