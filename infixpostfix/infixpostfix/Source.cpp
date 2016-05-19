@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "Postfix.h"
+#include "Evaluator.h"
 
 using namespace std;
 
@@ -19,6 +20,9 @@ int main() {
 
 	cout << p.getInfix() << endl;
 	cout << p.getPostfix() << endl;
+
+	Evaluator e(p.getPostfix());
+	cout << e.getResult();
 
 	// end program
 	cout << "\n\n";
