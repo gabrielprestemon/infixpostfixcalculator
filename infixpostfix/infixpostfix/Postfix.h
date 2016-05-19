@@ -17,6 +17,16 @@ private:
 	void convert();
 	// checks if all parenthesis are paired
 	bool checkParenthesis();
+	// strips the white spaces from the expression
+	void stripWhiteSpace();
+	// checks if the character is an operator
+	bool isOperator(char);
+	// checks if the character is an open parenthesis
+	bool openParenthesis(char);
+	// checks if the character is a closing parenthesis
+	// returns its alternate opening parenthesis
+	char closeParenthesis(char);
+
 public:
 	// default constructor
 	Postfix() { infix = ""; postfix = ""; }
