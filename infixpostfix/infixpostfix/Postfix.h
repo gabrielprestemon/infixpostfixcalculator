@@ -13,6 +13,7 @@ private:
 	std::string infix;
 	// postfix expression
 	std::string postfix;
+
 	// convert the infix expression to a postfix expression
 	void convert();
 	// checks if all parenthesis are paired
@@ -40,6 +41,7 @@ public:
 	inline std::string getPostfix() { return postfix; }
 	// set the infix expression (also converts it to postfix)
 	inline void setInfix(std::string in) { infix = in; convert(); }
+
 };
 
 #endif

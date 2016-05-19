@@ -1,3 +1,6 @@
+// File: Postfix.cpp source code for infix->postfix converter
+// Author: Gabriel Prestemon
+// Purpose: Convert an infix expression to a postfix expresssion
 #include "Postfix.h"
 #include <iostream>
 #include <stack>
@@ -130,29 +133,3 @@ bool Postfix::checkPrecedence(char stackTop, char nextOp) {
 	}
 	return false;
 }
-
-
-// number conversion
-//float n;
-//// whole number digits
-//while (isdigit(infix[i])) {
-//	n *= 10;
-//	n += infix[i] - '0';
-//	// increment index
-//	if (i < infix.size() - 1) { i++; }
-//	else { break; }
-//}
-//// decimals
-//if (infix[i] == '.') {
-//	// increment index
-//	if (i < infix.size() - 1) { i++; }
-//	else { break; }
-//	int decimalCount = 1;
-//	while (isdigit(infix[i])) {
-//		n += ((infix[i] - '0') / pow(10, decimalCount));
-//		// increment index
-//		if (i < infix.size() - 1) { i++; }
-//		else { break; }
-//	}
-//} // end decimal
-//// add the number to the 
