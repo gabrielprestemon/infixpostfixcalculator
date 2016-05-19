@@ -26,6 +26,8 @@ private:
 	// checks if the character is a closing parenthesis
 	// returns its alternate opening parenthesis
 	char closeParenthesis(char);
+	// true if precedence is higher, false if precedence is lower
+	bool checkPrecedence(char, char);
 
 public:
 	// default constructor

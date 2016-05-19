@@ -13,8 +13,24 @@ void Postfix::convert() {
 
 	std::stack<char> operators;
 	for (int i = 0; i < infix.size(); i++) {
-		// if the character is an operator or an open parenthesis, push it onto the stack
-		if (isOperator(infix[i]) || openParenthesis(infix[i])) {
+		// if the character is an operator push it onto the stack
+		if (isOperator(infix[i])) {
+			// if there is a precedence issue, pop from the stack
+			if(!operators.empty()) {
+				while (checkPrecedence(operators.top(), infix[i])) {
+					postfix.push_back(' ');
+					postfix.push_back(operators.top());
+					operators.pop();
+					if (operators.empty()) {
+						break;
+					}
+				}
+			}
+			operators.push(infix[i]);
+			postfix.push_back(' ');
+		}
+		// if the character is an open parenthesis,  push it onto the stack
+		else if (openParenthesis(infix[i])) {
 			operators.push(infix[i]);
 		}
 		// if the character is a close parenthesis, pop the stack into the expression
@@ -22,8 +38,8 @@ void Postfix::convert() {
 		//      char c holds the matching open parenthesis
 		else if (char c = closeParenthesis(infix[i])) {
 			while (operators.top() != c) {
-				postfix.push_back(operators.top());
 				postfix.push_back(' ');
+				postfix.push_back(operators.top());
 				operators.pop();
 			}
 			// discard the remaining open parenthesis
@@ -32,10 +48,11 @@ void Postfix::convert() {
 		// if it's a number, put it into the expression
 		else if (isdigit(infix[i]) || infix[i] == '.') {
 			postfix.push_back(infix[i]);
-		} // end number case
-	} // end for
+		}
+	}
 
 	while (!operators.empty()) {
+		postfix.push_back(' ');
 		postfix.push_back(operators.top());
 		operators.pop();
 	}
@@ -45,11 +62,11 @@ void Postfix::convert() {
 bool Postfix::checkParenthesis() {
 	std::stack<char> stk;
 	for (int i = 0; i < infix.size(); i++) {
-		if (infix[i] == '(' || infix[i] == '[' || infix[i] == '{' || infix[i] == '<') {
+		if (openParenthesis(infix[i])) {
 			stk.push(infix[i]);
 		}
-		if (infix[i] == ')' || infix[i] == ']' || infix[i] == '}' || infix[i] == '>') {
-			if (stk.top() != infix[i]) {
+		if (char c = closeParenthesis(infix[i])) {
+			if (stk.top() != c) {
 				return false;
 			}
 			stk.pop();
@@ -66,7 +83,7 @@ void Postfix::stripWhiteSpace() {
 	for (int i = 0; i < infix.size(); i++) {
 		if (infix[i] == ' ' || infix[i] == '\t') {
 			// remove the index, decrement i to match the new index space
-			infix.erase(i--);
+			infix.erase(i--, 1);
 		}
 	}
 }
@@ -94,16 +111,25 @@ char Postfix::closeParenthesis(char c) {
 	case ')':
 		return '(';
 	case ']':
-		return ']';
+		return '[';
 	case '}':
-		return '}';
+		return '{';
 	case '>':
-		return '>';
+		return '<';
 	default:
 		return 0;
 	}
 }
 
+// true if precedence is higher, false if precedence is lower
+bool Postfix::checkPrecedence(char stackTop, char nextOp) {
+	if (stackTop == '*' || stackTop == 'x' || stackTop == '/') {
+		if (nextOp == '-' || nextOp == '+') {
+			return true;
+		}
+	}
+	return false;
+}
 
 
 // number conversion
